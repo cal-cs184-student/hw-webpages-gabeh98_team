@@ -58,7 +58,7 @@
         of the three half-planes defined by the three edges of the triangle. It is also important that we make sure the three points are in the correct winding
         order, otherwise our line tests will be inconsistent. To get the points ordered counterclockwise, we compute the cross product of the second and third
         points, using the first point as the reference origin. If this value is positive, we swap the first two points. We are then guaranteed to be in the
-        correct winding order.
+        correct winding order. I then show a png screenshot of basic/test4.svg with pixel inspector centered on interesting part of the scene.
 
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
@@ -87,19 +87,32 @@
 		</div>
 		
 		<h2>Task 2: Antialiasing by Supersampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        To implement supersampling, I took the following approach. I maintained the regular grid boundaries but split the sample_buffer array into
+        <b>sample_rate</b> different sections, each corresponding to a supersample. Each pixel is divided up into a <b>rate</b>-by-<b>rate</b> grid, where
+        <b>rate</b> is the square root of the sample rate. Show png screenshots of basic/test4.svg with sample rates 1,4, and 16 compared side-by-side. Position
+        the pixel inspector over an area that showcases the effect dramatically. Explain why these results are observed.
 
 		<h2>Task 3: Transforms</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		create an updated version of svg/transforms/robot.svg with cubeman doing something interesting. Save your svg file as my_robot.svg in your docs/
+        directory and show a png of your screenshot drawing in writeup. Explalin what you werere trying to do with cubman in words.
 
 		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Explain barycentric coordinates in your own words and use an image to aid you in your explanation. Create a triangle with one red one green and one blue
+        vertex to show the effect. Show a png screenshot of test7.svg with sample_rate 1.
 
 		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Explain pixel sampling in your own words and describe how you implemented it to perform texture mapping. Briefly discuss the two different sampling
+        methods, nearest and bilinear. Use pixel insepcctor to find a good example where bilinear sampling defeats nearest sampling. Show and compare four png
+        screenshots using nearest sampling at 1 sample per pixel, nearest sampling at 16 samples per pixel, bilinear sampling at 1 sampe per pixel, and bilinear
+        sampling at 16 samples per pixel. Comment on the relative differences. Discuss when there will be a large difference between the two methods and why.
 
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Explain level sampling in your own words and describe how you implemented it for texture mapping. Describe the tradeoffs between speed, memory usage,
+        and antialiasing power between the three various techniques. Us a png file you find yourself, show us four versions of the image isuing
+        the combinations of (L_ZERO, P_NEAREST), (L_ZERO, P_LINEAR), (L_NEAREST, P_NEAREST), and (L_NEAREST, P_LINEAR). To use your own png, make a copy of one
+        of the existing svg files in svg/texmap. Then, near the top of the file, change the texture filename to point to your own png. From there, you can run
+        ./draw and pass in that svg file to render it and then save a screenshot of your results.
+
 
 		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
