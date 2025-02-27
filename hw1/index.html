@@ -51,7 +51,6 @@
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         To rasterize a triangle, we are given three 2D points and a color, and the corresponding pixels on the frame buffer are to be filled with this color. We
         start by calculating the bounding box of the triangle, which is the the smallest rectangle that contains the entire triangle. We then iterate over every
         pixel in the bounding box and check whether the pixel is inside the given triangle. We do this by checking whether the pixel is inside the intersection
@@ -91,6 +90,24 @@
         <b>sample_rate</b> different sections, each corresponding to a supersample. Each pixel is divided up into a <b>rate</b>-by-<b>rate</b> grid, where
         <b>rate</b> is the square root of the sample rate. Show png screenshots of basic/test4.svg with sample rates 1,4, and 16 compared side-by-side. Position
         the pixel inspector over an area that showcases the effect dramatically. Explain why these results are observed.
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="t2v1.png" width="400px"/>
+				  <figcaption>Sample rate = 1</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="t2v2.jpg" width="400px"/>
+				  <figcaption>Sample rate = 4</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="t2v3.jpg" width="400px"/>
+				  <figcaption>Sample rate = 16</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 
 		<h2>Task 3: Transforms</h2>
 		create an updated version of svg/transforms/robot.svg with cubeman doing something interesting. Save your svg file as my_robot.svg in your docs/
