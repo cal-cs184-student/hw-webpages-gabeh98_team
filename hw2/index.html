@@ -104,6 +104,28 @@
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
+				  <img src="img11.png" width="400px"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
+
+		<h3>Part 3: Area-weighted vertex normals</h3>
+        To compute area-weighted normals for a given vertex, we need to go through all the non-boundary triangle faces incident to that vertex,
+        compute the area of the triangle and weight the normal vector of the face by the area. We sum all these weighted normal vectors up
+        and then renormalize so that they have unit length. We do this using the halfedge data structure as follows. Start from an arbitrary
+        half edge incident to the given vertex. We keep track of this halfedge so that we know when to stop iterating over faces. We compute the
+        area of the face by taking the cross product of the two face edges incident to the given vertex, and dividing by two. To get the neighboring
+        face, we need to get the next halfedge whose corresponding edge is incident to the given vertex. Taking the twin halfedge of the current
+        half edge gives us a halfedge on the neighboring face, but to ensure that we don't accidentally jump back to the previous face and prematurely
+        exiting the loop, we need to to take the next halfedge of this twin. This halfedge is associated with the input vertex and so we are good to go.
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
 				  <img src="img9.png" width="400px"/>
 				</td>
 				<td style="text-align: center;">
@@ -113,19 +135,96 @@
 			</table>
 		</div>
 
-		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
-
-		<h3>Part 3: Area-weighted vertex normals</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
 		<h3>Part 4: Edge flip</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        In order to implement the edge flip operation I used the extremely helpful HalfedgeEdgeOpImplementationGuide.pdf provided by the course instructors.
+        This guide significantly improved my understanding of this homework for this part and the remaining two parts. Essentially I used the same mesh
+        identifiers provided in their picture and filled in the missing operations. I managed to get it working very quickly with no debugging trouble (part 5
+        was only slightly more difficult). I went through each halfedge one-by-one and adjust all the pointers to point to the correct mesh elements by
+        following the picture of the flipped edge.
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="img12.png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="img13.png" width="400px"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
 
 		<h3>Part 5: Edge split</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Implementing the edge split operation was more tedious than the edge flip, but was ultimately smooth sailing after I began to feel comfortable with the
+        halfedge structure during part 4. I drew out my own picture for the edge split, keeping as many of the mesh elements with the same ids as from part 4
+        as possible. The only difficulty here was coming up with my own drawing, as I used the course provided diagram for part 4. I later had to update one
+        line of this function so that the halfedge selection in part 6 for the newly introduced midpoint vertex was associated with one of the new edges, but
+        this was a minor change.
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="img14.png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="img15.png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="img16.png" width="400px"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
 
 		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Part 6 was more difficult to get right. I think I understood the goal pretty quickly but it was much harder to implement correctly.
+        I closely followed the 5 steps reccomended in the starter code and homework description. Steps 1 and 2 were simple to implement after
+        the learning experience from part 4 and part 5. I followed the provided diagram and computed the new and old vertex positions for the
+        eventual loop subdivision. Step 3 was simple at first. I simply checked which edges had old vertices, split them, updated the position
+        of the new midpoint vertex, and set the new midpoint vertex to be new. the results looked right. When I got to step 4, I had the right logic
+        but the results did not look right. I eventually realized that I was flipping incorrect edges. So I had to go back to step 3 and adjust
+        which edges I was setting to be new (namely, those incident to the new midpoint edge and NOT overlapping with the old longer edge that
+        was split). To do this correctly, I went back to my edge split code and made sure that the new vertex's associated halfedge was one
+        of the non-overlapping edges. It was then a simple matter to use the halfedge structure to compute the opposite edge that needed to be
+        flipped. After I finished those two changes, I only had to update the new vertex positions to get the desired result.
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+                <tr>
+				  <td style="text-align: center;">
+				    <img src="img17.png" width="400px"/>
+				  </td>
+				  <td style="text-align: center;">
+				    <img src="img18.png" width="400px"/>
+				  </td>
+				  <td style="text-align: center;">
+				    <img src="img19.png" width="400px"/>
+				  </td>
+			    </tr>
+                <tr>
+				  <td style="text-align: center;">
+				    <img src="img20.png" width="400px"/>
+				  </td>
+				  <td style="text-align: center;">
+				    <img src="img21.png" width="400px"/>
+				  </td>
+				  <td style="text-align: center;">
+				    <img src="img22.png" width="400px"/>
+				  </td>
+			    </tr>
+                <tr>
+				  <td style="text-align: center;">
+				    <img src="img23.png" width="400px"/>
+				  </td>
+				  <td style="text-align: center;">
+				    <img src="img24.png" width="400px"/>
+				  </td>
+			  </tr>
+			</table>
+		</div>
 
 		<h2>(Optional) Section III: Potential Extra Credit - Art Competition: Model something Creative</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
