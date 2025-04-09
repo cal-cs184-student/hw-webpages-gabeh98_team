@@ -28,7 +28,7 @@
 	<body>
 		<div class="container">
 		<h1>CS184/284A Spring 2025 Homework 4 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+		<div style="text-align: center;">Names: Gabriel Raulet</div>
 
 		<br>
 
@@ -43,15 +43,16 @@
 			<figcaption>You can add images with captions!</figcaption>
 		</figure>
 
-		<!--
-		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
-
-		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
-
 		<h2>Part 1: Masses and springs</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        A higher spring constant makes the cloth bouncier as it falls. At the beginning of the simulation the top
+        of the cloth appears tight with little drooping, and this continues throughout until it reaches its final
+        resting state. With a lower spring constant, the top of the cloth has a noticeable sag, and the integrity
+        of the cloth appears much weaker. The cloth also appears to take longer to reach a steady final state.
+        A higher density parameter appears to have a similar effect as the lower spring constant, and a lower density
+        appears to have a similar effect as the higher spring constant. A higher damping factor makes the cloth look like
+        it is falling in slow motion, almost giving it a weightless effect. The lower damping factor makes the cloth
+        extremely springy and turbulent. This of course makes a lot of sense, as the damping factor controls how much
+        energy is lost from friction.
 
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
@@ -83,21 +84,66 @@
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 		<h2>Part 3: Handling collisions with other objects</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        To handle collisions with spheres, I do the following. First I caclulate a vector v point from the origin of
+        the sphere to the given point mass's position. If the norm of this vector is less than or equal to the radius
+        of the sphere, it means that the point mass's position is inside the sphere. In that case, I calculate the
+        tangent point simply by adding the vector v (adjusted to be of length equal to the radius of the sphere)
+        to the origin. Finally, we update the position of the point mass by moving in the opposite direction of
+        the tangent point, adjusted by the friction factor.
+            Computing collisions with the plane is slightly more complicated. First we check whether the point mass passed
+        through plane in the last time step. We use the following approach: A point p is in the plane if (p - point) dot normal = 0.
+        A point mass is colliding with the plane if the sign of (p - point) dot normal and (p_last - point) dot normal
+        are different. We therefore check if this is true. If so, we move on to adjusting the position of the point mass.
+        To find the tangent point (the point of intersection), we need to find where along the line from p_last to p
+        we intersect the plane. First, let d = (p - p_last)/|p - p_last|. This is the unit vector pointing in the direction
+        that p is travelling. Let p_tan be the tangent point. By the aforementioned formula, we have (p_tan - point) dot normal = 0.
+        We need to find the scalar t such that p_tan = p_last + t*d. Take the dot product with the normal vector on both
+        sides to get (point - p_last) dot normal = t*(d dot normal). We then solve for t by dividing out (d dot normal) on both sides.
+        Finally, we adjust the position using a similar calculation as with the sphere, except that we nudge the tangent vector
+        slightly off of the surface of the the plane.
+            With a ks=500 value, the cloth stretches out smoothly in the shape of the sphere. The cloth has a silky/delicate appearance.
+        Kicking up ks to be 50000, the cloth becomes very stiff and doesn't fall as sharply. It appears more like a burlap material.
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="part3.500.png" width="400px"/>
+				  <figcaption>ks=500</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part3.5000.png" width="400px"/>
+				  <figcaption>ks=5000</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part3.50000.png" width="400px"/>
+				  <figcaption>ks=50000</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part3.plane.png" width="400px"/>
+				  <figcaption>plane</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 
 		<h2>Part 4: Handling self-collisions</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        To handle self-collisions, we find all point masses that are candidates for self-collsision by first hashing all
+        the points in space using a custom hash function. For each candidate, we compute how far away the point mass
+        is from the candidate for self-collision. If this is with a distance of 2 times the thickness of the given
+        object, we compute a small adjustment in the opposite direction. We accumulate all these partial collision
+        vectors and then compute the average at the end and adjust our point mass.
 
 		<h2>Part 5: Shaders</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 		<h2>(Optional) Part 6: Extra Credit - Additional cloth simulation features!</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		
+
 		<h2>Additional Notes (please remove)</h2>
 		<ul>
 			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
+			<li>If you'd like to add math equations,
 				<ul>
 					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
 					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
