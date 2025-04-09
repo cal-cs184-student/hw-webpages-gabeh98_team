@@ -31,19 +31,32 @@
 		<div style="text-align: center;">Names: Gabriel Raulet</div>
 
 		<br>
-
 		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-
 		<br>
 
 		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-
-		<figure>
-			<img src="clothsim.png" alt="Cloth draped over sphere" style="width:70%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
-
 		<h2>Part 1: Masses and springs</h2>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="without_shearing.png" width="400px"/>
+				  <figcaption>Without shearing</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="only_shearing.png" width="400px"/>
+				  <figcaption>Only shearing</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="all_constraints.png" width="400px"/>
+				  <figcaption>all_constraints</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<h2>Part 2: Simulation via numerical integration</h2>
         A higher spring constant makes the cloth bouncier as it falls. At the beginning of the simulation the top
         of the cloth appears tight with little drooping, and this continues throughout until it reaches its final
         resting state. With a lower spring constant, the top of the cloth has a noticeable sag, and the integrity
@@ -54,34 +67,32 @@
         extremely springy and turbulent. This of course makes a lot of sense, as the damping factor controls how much
         energy is lost from friction.
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="clothsim.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="part2.ks50.png" width="400px"/>
+				  <figcaption>Spring constant=50</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="clothsim.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="clothsim.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="part2.ks50000.png" width="400px"/>
+				  <figcaption>Spring constant=50000</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="clothsim.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="part2.density2.png" width="400px"/>
+				  <figcaption>Density=2</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part2.density100.png" width="400px"/>
+				  <figcaption>Density=100</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part2.default.png" width="400px"/>
+				  <figcaption>Default resting place</figcaption>
 				</td>
 			  </tr>
 			</table>
 		</div>
-
-		<h2>Part 2: Simulation via numerical integration</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 		<h2>Part 3: Handling collisions with other objects</h2>
         To handle collisions with spheres, I do the following. First I caclulate a vector v point from the origin of
@@ -134,22 +145,38 @@
         object, we compute a small adjustment in the opposite direction. We accumulate all these partial collision
         vectors and then compute the average at the end and adjust our point mass.
 
+        With a lower spring constant (say, ks=500), the cloth has a rigid bumpy look, while with a higher density parameter
+        (say, density=100), we see that the cloth almost has a mountainous appearance.
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="part4.t1.png" width="400px"/>
+				  <figcaption>timestep=1</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part4.t2.png" width="400px"/>
+				  <figcaption>timestep=2</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part4.t3.png" width="400px"/>
+				  <figcaption>timestep=3</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part4.ks500.png" width="400px"/>
+				  <figcaption>Spring constant=500</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part4.density100.png" width="400px"/>
+				  <figcaption>Density=100</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
 		<h2>Part 5: Shaders</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>(Optional) Part 6: Extra Credit - Additional cloth simulation features!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations,
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
 		</div>
 	</body>
 </html>
